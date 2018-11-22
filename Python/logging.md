@@ -21,7 +21,8 @@ Logger 对象要做三件事情。首先，它们向应用代码暴露了许多�
 这些是最常用的配置方法：  
 
 `Logger.setLevel()` 指定 logger 将会处理的最低的安全等级日志信息, debug 是最低的内置安全等级，critical 是最高的内建安全等级。例如，如果严重程度为 INFO, 记录器将只处理 INFO, WARNING, ERROR 和 CRITICAL 消息, DEBUG 消息被忽略。 `Logger.addHandler()` 和 `Logger.removeHandler()` 从记录器对象中添加和删除处理程序对象。处理器详见 Handlers.  
-`Logger.addFilter()` 和 `Logger.removeFilter()` 从记录器对象添加和删除过滤器对象。  
+`Logger.addFilter()` 和 `Logger.removeFilter()` 从记录器对象添加和删除过滤器对象。 
+
 
 ### Handlers
 
@@ -70,6 +71,7 @@ Logger 对象要做三件事情。首先，它们向应用代码暴露了许多�
 - setLevel() 方法和日志对象的一样，指明了将会分发日志的最低级别。为什么会有两个 setLevel() 方法？ 记录器的级别决定了消息是否要传递给处理器。每个处理器的级别决定了消息是否要分发。  
 - setFormatter() 为该处理器选择一个格式化器。  
 - addFilter() 和 removeFilter() 分别配置和取消配置处理程序上的过滤器对象。  
+
 
 ### Formatters
 Formatter 对象设置日志信息最后的规则、结构和内容，默认的时间格式为 %Y-%m-%d %H:%M:%S, 下面是 Formatter 常用的一些信息  
@@ -134,7 +136,9 @@ if __name__ == '__main__':
     log.logger.error('报错')
     log.logger.critical('严重')
     Logger('error.log', level='error').logger.error('error')
-```
+```  
+
+---
 
 ## logging 模块使用
 
@@ -186,7 +190,8 @@ logging.critical('critial 信息')
 ```
 > 这种打印日志需要将日志格式化放在首次调用的位置，**一旦格式化执行执行后，其余格式化将不再执行** [参考](https://www.cnblogs.com/nancyzhu/p/8551506.html)  
 
-> 如需要多个日志输出则需要使用动态输出日志 [参考](http://www.voidcn.com/article/p-whoikwnb-bhx.html)
+> 如需要多个日志输出则需要使用动态输出日志 [参考](http://www.voidcn.com/article/p-whoikwnb-bhx.html)  
+
 
 ### 基本参数  
 
@@ -214,8 +219,9 @@ logging.basicConfig 函数各参数：
 |-|-|
 |datefmt|指定时间格式，同time.strftime()|
 |level|设置日志级别，默认为logging.WARNNING|
-|stream|指定将日志的输出流，可以指定输出到sys.stderrsys.stdout或者文件，默认输出到sys.stderr，当stream和filename同时指定时，stream被忽略|
+|stream|指定将日志的输出流，可以指定输出到sys.stderrsys.stdout或者文件，默认输出到sys.stderr，当stream和filename同时指定时，stream被忽略|  
 
+---
 
 ## logging.logger & logging.handler  
 
@@ -271,6 +277,7 @@ logger.addHandler(ch)
 ```
 [参考](https://www.cnblogs.com/anpengapple/p/5048123.html)  
 
+
 ### 将日志写入文件
 
 设置logging，创建一个FileHandler，并对输出消息的格式进行设置，将其添加到logger，然后将日志写入到指定的文件中  
@@ -288,7 +295,8 @@ logger.info("Start print log")
 logger.debug("Do something")
 logger.warning("Something maybe fail.")
 logger.info("Finish")
-```
+```  
+
 
 ### 将日志同时输出到屏幕和日志文件
 
@@ -329,7 +337,8 @@ logger.info("Finish")
 |SysLogHandler|logging.handlers.SysLogHandler|日志输出到syslog|
 |NTEventLogHandler|logging.handlers.NTEventLogHandler|远程输出日志到Windows NT/2000/XP的事件日志|
 |MemoryHandler|logging.handlers.MemoryHandler|日志输出到内存中的指定buffer|
-|HTTPHandler|logging.handlers.HTTPHandler|通过"GET"或者"POST"远程输出到HTTP服务器|
+|HTTPHandler|logging.handlers.HTTPHandler|通过"GET"或者"POST"远程输出到HTTP服务器|  
+
 
 ### 日志回滚  
 
@@ -358,7 +367,8 @@ logger.info("Start print log")
 logger.debug("Do something")
 logger.warning("Something maybe fail.")
 logger.info("Finish")
-```
+```  
+
 
 ### 设置消息的等级  
 
@@ -381,7 +391,8 @@ logger.info("Finish")
 |INFO|10|
 |DEBUG|0|  
 
-默认等级是 WAENING, 这意味着仅仅这个等级及以上的才会反馈信息，除非 logging 模块被用来做其它事情。
+默认等级是 WAENING, 这意味着仅仅这个等级及以上的才会反馈信息，除非 logging 模块被用来做其它事情。  
+
 
 ### 捕获 traceback  
 ```python
@@ -417,6 +428,7 @@ logger.info("Finish")
  `logger.error("Faild to open sklearn.txt from logger.error",exc_info = True)`
 替换为  
 `logger.exception("Failed to open sklearn.txt from logger.exception")`  
+
 
 ### 多模块使用 logging  
 
@@ -472,6 +484,7 @@ def som_function():
 首先在主模块定义了 `logger'mainModule'`, 并对它进行了配置，就可以在解释器进程里面的其他地方通过 `getLogger('mainModule')` 得到的对象都是一样的，不需要重新配置，可以直接使用。定义的该 logger 的子 logger, 都可以共享父logger的定义和配置，所谓的父子 logger 是通过命名来识别，任意以'mainModule'开头的logger都是它的子logger，例如 `'mainModule.sub'`.  
 
 实际开发一个 application, 首先可以通过 logging 配置文件编写好这个 application 所对应的配置，可以生成一个根 logger，如 `'PythonAPP'`, 然后在主函数中通过 fileConfig 加载 logging 配置，接着在 application 的其他地方、不同的模块中，可以使用根 logger 的子logger，如 `'PythonAPP.Core'`, `'PythonAPP.Web'` 来进行 log, 而不需要反复的定义和配置各个模块的logger.  
+
 
 ### 通过JSON或者YAML文件配置logging模块  
 
@@ -558,7 +571,8 @@ def func():
 if __name__ == "__main__":
     setup_logging(default_path = "logging.json")
     func()
-```
+```  
+
 
 #### 通过 YAML 文件配置  
 
@@ -631,6 +645,8 @@ if __name__ == "__main__":
     func()
 ```  
 
+---
+
 ## 遇到的问题  
 
 ### logging 重复写日志问题  
@@ -700,14 +716,17 @@ if __name__ == '__main__':
     log('hi too')
     log('hi three')
 ```  
+
+---
+
 **至此，困扰了几天的日志问题算是告一段落了，写这篇又花了些时间，完全是为了关掉 Chrome 上一堆开着的标签页哈哈哈哈哈哈**  
 **广州这两天也是开始凉了，前天冻的我颈椎又犯了大概，支着我这个破颈椎写完这篇**  
 **本来是用着有道云笔记写的，可惜昨天实在是受不了有道的 MarkDown 了，在 VsCode 上写的第一篇，设好了云端备份，准备之后也该弄个博客了，不过没想好弄什么方式的哈哈哈哈哈，纠结啧啧啧**  
 **这里的问题是在把公司的测试用例和脚本从 Python2 迁到 Python3 的收尾时候遇到的。接下来就是把有道的笔记都迁过来，以及新的笔记，哦还有养好脖子，好好学习**  
 **近期的任务大概是，把迁到 Python3 的用例在 Linux 上跑起来，在不影响现阶段用例运行环境的前提下，弄好了差不多一半吧大概**  
-***哈哈哈哈哈哈，随时都有删库跑路的风险，瑟瑟发抖***
+***哈哈哈哈哈哈，随时都有删库跑路的风险，瑟瑟发抖***  
 
-
+---
 
 ## Reference  
 
