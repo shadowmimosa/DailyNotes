@@ -398,3 +398,5 @@ $ deactivate
 [Linux 中python2 、python3 共存](https://blog.csdn.net/zuopiezia/article/details/79413168)  
 [关于Ubuntu中python虚拟环境无法将安装包pip安装到虚拟环境中](https://www.jianshu.com/p/80270276a54f)  
 
+
+**2018.11.24**

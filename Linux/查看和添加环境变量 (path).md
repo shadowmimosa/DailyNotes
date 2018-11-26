@@ -32,4 +32,7 @@
 
 ### Reference
 
-[Linux下查看和添加环境变量](https://www.cnblogs.com/aaronLinux/p/5837702.html)
+[Linux下查看和添加环境变量](https://www.cnblogs.com/aaronLinux/p/5837702.html)  
+
+
+**2018.11.23**
