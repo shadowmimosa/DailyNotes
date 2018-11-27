@@ -372,7 +372,7 @@ $ deactivate
 
 - 在 Linux 下，升级到 Python3.7 以上会有不能使用 pip 的问题，提示 SSL 错误。
     网上有很多说法，比如重新编译，加参数，改配置文件等等。  
-    尝试后都没有成功，最后在[这里](http://www.lingdonge.com/daily/4176.html), 感觉还挺靠谱。  
+    尝试后都没有成功，最后找到[原因](http://www.lingdonge.com/daily/4176.html), 感觉这个还挺靠谱。  
     然后使用了最简单的办法...安装 Python3.6, 避免不能使用 pip 的问题，有空再研究 3.7 的问题。  
 
 - 在创建 Python 虚拟环境的方法中，pip 使用需要注意  
