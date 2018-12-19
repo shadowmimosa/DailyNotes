@@ -98,7 +98,7 @@ eg.
 保存2种类型的log， all.log 保存debug, info, warning, critical 信息， error.log则只保存error信息，同时按照时间自动分割日志文件。
 
 ```python
- import logging
+import logging
 from logging import handlers
 
 class Logger(object):
