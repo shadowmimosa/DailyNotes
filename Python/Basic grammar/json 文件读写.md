@@ -6,7 +6,7 @@
 ```python
 model={} #数据
 with open("./demo.json",'w',encoding='utf-8') as json_file:
-    json.dump(model,json_file,ensure_ascii=False)
+    json.dump(model,json_file,ensure_ascii=False) # `ensure_ascii` 为 True 时，中文保存为十六进制
 ```
 
 - 读取
