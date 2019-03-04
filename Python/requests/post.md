@@ -33,7 +33,7 @@ headers = {
              }
 url = "https://youpin.mi.com/app/shopv3/pipe"
 form_data = {"data": '{"result": {"model": "Homepage", "action": "BuildClass", "parameters": {"id": -6}}}'}
-results = requests.post(url, data=form_data, headers=headers,verify=False).text
+results = requests.post(url, data=form_data, headers=headers, verify=False).text
 print(results)
 ```
 
