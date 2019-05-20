@@ -488,3 +488,13 @@ jps 192.168.0.77
 （前提是远程服务器提供jstatd服务）
 
 注：jps命令有个地方很不好，似乎只能显示当前用户的java进程，要显示其他用户的还是只能用unix/linux的ps命令。
+
+
+</font>  
+
+<font size=4 face='楷体'>
+<div style="text-align: right"> ShadowMimosa </div>
+</font>
+<font size=3 face='楷体'>
+<div style="text-align: right"> 2019.4.10 </div>
+</font>
