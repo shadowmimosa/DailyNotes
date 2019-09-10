@@ -62,4 +62,4 @@ def remove_pdf(path):
 # change_signature()
 
 if __name__ == "__main__":
-    pass
+    remove_pdf(os.path.curdir)
