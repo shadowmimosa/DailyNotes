@@ -2,9 +2,21 @@
 
 ## uWSGI 配置说明
 
+### 启动报错
+
+> Listen queue size is greater than the system max net.core.somaxconn (128)
+
+如字面意思，监听端口超过了系统默认设置 128, 那么:
+
+- 修改 uwsgi 配置，listen 小于 128
+  ```shell
+  listen = 127
+  ```
+- 修改系统设置
+  ```shell
+  echo 1024 > /proc/sys/net/ipv4/tcp_max_syn_backlog
+  ```
 
 ## Reference
 
-[官方文档: 日志记录](https://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/Logging.html)  
-[UWSGI配置中文说明](https://www.jianshu.com/p/fb6ca54f355d)  
-[Django使用uwsgi部署时的配置以及django日志文件的处理](https://blog.csdn.net/haeasringnar/article/details/82055143)  
+[Listen queue size is greater than the system max net.core.somaxconn (128)解决](https://blog.csdn.net/yaolong336/article/details/78523442)
