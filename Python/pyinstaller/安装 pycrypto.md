@@ -42,4 +42,7 @@
 [python3 安装 pycrypto](https://www.jianshu.com/p/830a3d8a95e2)
 [windows 安装 pycrypto 出错问题](https://blog.csdn.net/A156348933/article/details/86137203)
 
+[出现：Microsoft Visual C++ 14.0 is required 的解决方案](https://www.jianshu.com/p/7b24274c569a)
+[解释 Crypto 模块怎么就这么"皮"？No module named "Crypto"](https://www.cnblogs.com/fawaikuangtu123/p/9761943.html)
+
 **2019.11.12**
