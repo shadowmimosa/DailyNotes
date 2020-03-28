@@ -20,6 +20,12 @@
   [网站地址](https://jquery.com/)
   [GitHub](https://github.com/jquery/jquery)
 
+- crypto-js
+  加密解密库
+  [crypto-js 获取加密后的值](https://blog.csdn.net/y491887095/article/details/80653515)
+  [JS+Python 前后端 DES3 加解密](https://www.cnblogs.com/jessicaDuan/p/11289324.html)
+  [crypto-js 实现加密解密](https://www.jianshu.com/p/93868238d6fd)
+
 ### Reference
 
 [jquery.mask.js](http://www.fly63.com/nav/290)
