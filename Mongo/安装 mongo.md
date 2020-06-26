@@ -96,5 +96,4 @@
 [20.MongoDB 远程连接](https://www.jianshu.com/p/90f0b638094d)
 [mongodb 远程连接配置](https://www.cnblogs.com/jinxiao-pu/p/7121307.html)
 
-**2019.11.1**
-_新的一个月 加油_
+**2020.06.26**
