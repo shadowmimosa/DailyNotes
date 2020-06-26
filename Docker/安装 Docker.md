@@ -5,8 +5,7 @@
 - 安装依赖包
 
   ```bash
-  sudo yum install -y yum-utils device-mapper-persistent-data
-  lvm2
+  sudo yum install -y yum-utils device-mapper-persistent-data lvm2
   ```
 
 - 设置阿里云镜像源
@@ -16,6 +15,24 @@
   ```
 
 - 安装 Docker-CE
+
+  ```bash
+  sudo yum install docker-ce
+  ```
+
+  如果出现报错
+
+  ```bash
+  Problem: package docker-ce-3:19.03.12-3.el7.x86_64 requires containerd.io >= 1.2.2-3, but none of the providers can be installed
+  ```
+
+  此时需要安装新版 containerd.io
+
+  ```bash
+  dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+  ```
+
+  再次执行安装
 
   ```bash
   sudo yum install docker-ce
@@ -71,7 +88,7 @@
   docker rm <容器名 or ID>
   # 查看容器日志
   docker logs -f <容器名 or ID>
-  # 查看正在运行的容器
+  # 查看正在运行的容器b
   docker ps
   # 查看所有的容器，包括已经停止的。
   docker ps -a
@@ -136,6 +153,7 @@ sudo systemctl restart docker
 ### Reference
 
 [linux 安装 docker](https://www.jianshu.com/p/2dae7b13ce2f)
-[Docker（二）使用阿里云docker镜像加速](https://blog.csdn.net/qq_37495786/article/details/83246421)
+[Docker（二）使用阿里云 docker 镜像加速](https://blog.csdn.net/qq_37495786/article/details/83246421)
+[CentOS 8 安装 Docker 报错](https://blog.csdn.net/shana_8/article/details/105190368)
 
 **2020.6.8**

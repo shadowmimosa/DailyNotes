@@ -58,6 +58,11 @@
 
   这里注意一下，新版本不支持 db.addUser() 创建用户，改为了 db.createUser()
 
+- 修改密码
+
+        > db.changeUserPassword("usertest","changepass");
+        > db.updateUser("usertest",{pwd:"changepass1"});
+
 - 创建不同权限用户
 
         > db.createUser({
