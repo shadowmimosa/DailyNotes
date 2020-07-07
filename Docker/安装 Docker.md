@@ -143,9 +143,11 @@ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v porta
 # 进入容器镜像服务， 左侧最下方容器镜像服务中复制加速器地址
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
+
 {
-"registry-mirrors": ["你的加速器地址"]
+  "registry-mirrors": ["你的加速器地址"]
 }
+
 EOF
 # 重启docker
 sudo systemctl daemon-reload
