@@ -93,8 +93,19 @@
   mvn install -Dmaven.test.skip=true
   ```
 - maven 打包跳过测试
+  mvn 命令增加参数
   ```bash
   mvn package -Dmaven.test.skip=true
+  ```
+  单元测试增加注解
+  ```Java
+  @Ignore
+  ```
+  maven 插件
+  ```xml
+  <configuration>
+      <skip>true</skip>
+  </configuration>
   ```
 - 下载依赖包的源代码
   ```bash
@@ -104,5 +115,6 @@
 ### Reference
 
 [mvn 常用命令](https://www.jianshu.com/p/ee7bc34d7ccc)
+[maven 设置跳过测试](https://www.cnblogs.com/flying607/p/9952033.html)
 
-**2020.09.07**
+**Create on 2020.09.07, Update on 2020.09.17**
