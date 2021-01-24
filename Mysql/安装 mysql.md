@@ -33,7 +33,7 @@
 
 - 查找默认登录密码
 
-  > cat /var/log/mysqld.log | grep password
+  > cat /var/log/mysql/mysqld.log | grep password
 
 - 登录
 
