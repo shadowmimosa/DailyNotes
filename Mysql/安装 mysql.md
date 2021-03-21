@@ -40,7 +40,7 @@
   > mysql -u root -p 密码
 
 - 修改密码，权限等
-  参考[这里](Mysql 8.0/添加用户和赋权.md)
+  参考[这里](Mysql/添加用户和赋权.md)
 
 - 开机启动
   > systemctl enable mysqld
