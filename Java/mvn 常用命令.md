@@ -86,16 +86,16 @@
   ```
 - 跳过单元测试
   ```bash
-  mvn test -Dmaven.test.failure.ignore=true
+  mvn test -D maven.test.failure.ignore=true
   ```
 - 跳过整个测试
   ```bash
-  mvn install -Dmaven.test.skip=true
+  mvn install -D maven.test.skip=true
   ```
 - maven 打包跳过测试
   mvn 命令增加参数
   ```bash
-  mvn package -Dmaven.test.skip=true
+  mvn package -D maven.test.skip=true
   ```
   单元测试增加注解
   ```Java
