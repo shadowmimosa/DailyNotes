@@ -2,6 +2,10 @@
 
 ## Linux 下 docker 安装
 
+- 官方文档
+  [安装 Docker](https://docs.docker.com/engine/installation/)
+  [安装 Docker Compose](https://docs.docker.com/compose/install/)
+
 - 安装依赖包
 
   ```bash
@@ -70,7 +74,19 @@
 
   修改权限
 
-## 基本使用
+### 卸载
+
+[参考](https://www.cnblogs.com/kingsonfu/p/11582495.html)
+
+```bash
+systemctl stop docker
+yum list installed | grep docker
+yum remove docker-ce
+
+rm -rf /var/lib/docker
+```
+
+### 基本使用
 
 - 官方镜像[地址](https://hub.docker.com/)
 
