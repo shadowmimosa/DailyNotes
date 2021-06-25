@@ -6,7 +6,7 @@
 
 ### 安装&使用
 
--   Install [snapd](https://snapcraft.io/docs/installing-snap-on-centos)
+- Install [snapd](https://snapcraft.io/docs/installing-snap-on-centos)
     Adding EPEL
 
     ```bash
@@ -29,11 +29,13 @@
     $ sudo ln -s /var/lib/snapd/snap /snap
     ```
 
--   Ensure that your version of snapd is up to date
+- Ensure that your version of snapd is up to date
+
     ```bash
-    $ sudo snap install core; sudo snap refresh core
+    sudo snap install core; sudo snap refresh core
     ```
--   Remove any Certbot OS packages
+
+- Remove any Certbot OS packages
 
     ```bash
     # CentOS 8
@@ -44,17 +46,19 @@
     $ sudo apt-get remove certbot
     ```
 
--   Install Certbot
-    ```bash
-    $ sudo snap install --classic certbot
-    ```
--   Prepare the Certbot command
+- Install Certbot
 
     ```bash
-    $ sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    sudo snap install --classic certbot
     ```
 
--   Run Certbot
+- Prepare the Certbot command
+
+    ```bash
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    ```
+
+- Run Certbot
 
     ```bash
     # Certbot edit your Nginx configuration automatically
@@ -63,10 +67,10 @@
     $ sudo certbot certonly --nginx
     ```
 
--   Test automatic renewal
+- Test automatic renewal
 
     ```bash
-    $ sudo certbot renew --dry-run
+    sudo certbot renew --dry-run
     ```
 
     renew certbot is installed in one of the following locations
@@ -77,7 +81,7 @@
     systemctl list-timers
     ```
 
--   Confirm that Certbot worked
+- Confirm that Certbot worked
 
 ### docker & certbot
 
