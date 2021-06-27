@@ -5,32 +5,34 @@
 ### 安装
 
 - 安装相关组件
+
   ```bash
   yum -y install gcc gcc-c++ zlib zlib-devel openssl openssl-devel pcre pcre-devel
   ```
+
 - 编译安装
   [官方网站](https://nginx.org/en/download.html)获取下载链接，这里直接下载最新版
   默认安装路径为: `/usr/local/nginx`
 
   ```bash
-    #获取nginx。如果未安装 wget，使用 yum -y install wget
-    wget https://nginx.org/download/nginx-1.19.0.tar.gz
+    # 获取nginx, 如果未安装 wget, 使用 yum -y install wget
+    wget https://nginx.org/download/nginx-1.20.0.tar.gz
 
-    #解压，zxvf显示解压文件
-    tar zxf nginx-1.19.0.tar.gz
+    # 解压, zxvf显示解压文件
+    tar zxf nginx-1.20.0.tar.gz
 
-    #进入nginx源文件目录
-    cd nginx-1.19.0
+    # 进入 nginx 源文件目录
+    cd nginx-1.20.0
 
-    #编译
-    #默认 https 没有打开，需要添加 --with-http_ssl_module
+    # 编译
+    # 默认 https 没有打开, 需要添加 --with-http_ssl_module
     # 默认不安装 stream 模块，需要代理 TCP 要打开
     ./configure --with-http_ssl_module --with-stream
 
-    #安装Nginx
+    # 安装Nginx
     make && make install
 
-    #启动Nginx
+    # 启动Nginx
     /usr/local/nginx/sbin/nginx
   ```
 
@@ -69,6 +71,8 @@ http {
 ```
 
 ### 代理 Https 配置文件示例
+
+```bash
 {
 worker_processes 1;
 
@@ -78,7 +82,7 @@ events {
 }
 
 http {
-  server { 
+  server {
     listen 443 ssl;
     server_name www.baidu.com;
     charset utf-8;
@@ -96,6 +100,7 @@ http {
 }
 }
 }
+```
 
 ### 代理 TCP 配置文件示例
 
