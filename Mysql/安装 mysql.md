@@ -13,7 +13,7 @@
 
 - 安装
 
-  > wget https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
+  > wget <https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm>
   > yum localinstall mysql # 本地安装 yum 源
   > yum search mysql # 检测是否已经安装
 
@@ -34,6 +34,7 @@
 - 查找默认登录密码
 
   > cat /var/log/mysql/mysqld.log | grep password
+  > cat /var/log/mysqld.log | grep password
 
 - 登录
 
@@ -49,9 +50,11 @@
 ### Centos8 重装 MySQL8
 
 - 卸载
+
   ```bash
   yum remove -y mysql
   ```
+
 - 清理残留
 
   ```bash
@@ -59,15 +62,19 @@
   ```
 
 - 安装 mysql
+
   ```bash
   yum localinstall mysql80-community-release-el8-1.noarch.rpm
   yum update
   yum install mysql-server
   ```
+
 - 查看 mysql
+
   ```bash
   ps -ef | grep mysql
   ```
+
 - 启动
 
   ```bash
@@ -85,15 +92,19 @@
   ```
 
 - 创建用户
+
   ```sql
   -- 创建用户名为 user 密码为 password 的用户
   Create user 'user'@'%' identified by 'password';
   ```
+
   新用户赋权
+
   ```sql
   -- 这里赋予所有权限
   Grant all privileges on *.* to 'user'@'%';
   ```
+
   ```sql
   -- 刷新权限
   flush privileges;
@@ -101,21 +112,28 @@
 
 - 修改端口
   配置文件中添加端口配置
+
   ```bash
   vim /etc/my.cnf
   ```
+
   ```bash
   [mysqld]
   port=12345
   ```
+
   重启服务
+
   ```bash
   systemctl restart mysqld.service
   ```
+
   检查端口
+
   ```bash
   netstat -nltp
   ```
+
 ### Reference
 
 [CentOS7 安装 mysql](https://cloud.tencent.com/developer/article/1393323)
