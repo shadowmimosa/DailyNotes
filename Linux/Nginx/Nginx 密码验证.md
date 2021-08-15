@@ -19,7 +19,7 @@
 
 - htpasswd 参数
 
-  ```
+  ```bash
   -c 创建passwdfile.如果passwdfile 已经存在,那么它会重新写入并删去原有内容.
   -n 不更新passwordfile，只将加密后的用户名密码显示在屏幕上；
   -m 默认采用MD5算法对密码进行加密
@@ -48,9 +48,11 @@
   ```
 
 - 不更新密码文件, 只显示加密后的用户名和密码
+
   ```bash
   htpasswd -nb admin adminpassword
   ```
+
 - 删除用户名和密码
 
   ```bash
@@ -68,10 +70,11 @@
   ```
 
 - Nginx 中启用密码认证
+
   ```bash
   location /status {
-       auth_basic "Restricted";
-       auth_basic_user_file /usr/local/nginx/.htpasswd;
+       auth_basic "Restricted"; #这里是验证时的提示信息
+       auth_basic_user_file /usr/local/nginx/.htpasswd;  #这里是密码文件, 可以填写绝对路径
        vhost_traffic_status_display;
        vhost_traffic_status_display_format html;
   }
@@ -79,6 +82,7 @@
 
 ### Reference
 
-[Nginx中使用htpasswd](https://blog.csdn.net/zyw_java/article/details/80561316)
+[Nginx 中使用 htpasswd](https://blog.csdn.net/zyw_java/article/details/80561316)
+[nginx配置访问密码，输入用户名和密码才能访问 nginx autoindex](https://www.cnblogs.com/faberbeta/p/nginx001.html)
 
 **2020.09.07**
