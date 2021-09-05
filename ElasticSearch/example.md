@@ -141,4 +141,25 @@ curl _index/_delete_by_query
     }
   }
 }
+
+# 排序查询指定字段
+curl _index/_search
+{
+  "size": 2000,
+  "_source": [
+    "id",
+    "r2"
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_phrase": {
+            "w5": "您因为之前访问本页面的频率过高"
+          }
+        }
+      ]
+    }
+  }
+}
 ```
