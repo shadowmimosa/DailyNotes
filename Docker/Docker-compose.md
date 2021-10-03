@@ -2,6 +2,9 @@
 
 ## Docker-compose
 
+- 官方文档
+  [安装 Docker Compose](https://docs.docker.com/compose/install/)
+
 ### 简介
 
 Docker-Compose 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。
