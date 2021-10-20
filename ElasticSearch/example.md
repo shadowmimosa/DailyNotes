@@ -163,3 +163,55 @@ curl _index/_search
   }
 }
 ```
+
+```bash
+# must 与 should 混合嵌套查询
+
+# filter 和 must 结果相同, 可相互替换
+# filter 不计算评分, 查询效率高, 有缓存; must 计算评分, 查询效率低, 无缓存
+
+curl _index/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "filter": [
+              {
+                "match_phrase": {
+                  "bt": "沈阳"
+                }
+              },
+              {
+                "match_phrase": {
+                  "bt": "箱式变电站"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "filter": [
+              {
+                "match_phrase": {
+                  "bt": "沈阳"
+                }
+              },
+              {
+                "match_phrase": {
+                  "bt": "保护管"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort": {
+    "r2": "desc"
+  }
+}
+```
