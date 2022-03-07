@@ -32,8 +32,20 @@
   /bin/sh
   ```
 
+- 进入容器修改
+  直接进入文件修改 /etc/hosts, 在重启容器后, 增加的内容会丢失
+
+- docker-compose.yml
+  通过配置参数 extra_hosts 来实现
+  ```bash
+  extra_hosts:
+  - "somehost:162.242.195.82"
+  - "otherhost:50.31.209.229"
+  ```
+
 ### Reference
 
 [Docker 容器如何修改 hosts](https://www.cnblogs.com/mrnx2004/p/11767354.html)
+[修改 docker 容器中的 hosts 文件](https://www.cnblogs.com/sucretan2010/p/12123767.html)
 
-**2020.07.30**
+**Create On 2020.07.30, Update On 2022.03.03**
