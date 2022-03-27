@@ -5,6 +5,7 @@
 - 卸载默认安装的 mariadb
 
   > yum search mysql
+  > yum remove mariadb*
   > yum remove mariadb.x86_64
 
 - 去[官网](https://dev.mysql.com/downloads/repo/yum/)找到 mysql 的下载版本
@@ -115,6 +116,9 @@
 
   ```bash
   vim /etc/my.cnf
+
+  # 指定配置文件启动, 指定用户
+  mysqld --defaults-file=/etc/my.cnf --user=root
   ```
 
   ```bash
