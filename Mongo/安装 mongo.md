@@ -35,6 +35,36 @@
   > mongo
   ```
 
+### 安装 MongoDB Shell
+
+新版本 mongo 默认不提供 shell, 需要自行安装
+
+- 配置源
+
+```bash
+# /etc/yum.repos.d/mongodb-org-6.0.repo
+[mongodb-org-6.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
+```
+
+- yum 安装
+
+```bash
+yum install -y mongodb-mongosh
+```
+
+- 启动
+
+```bash
+mongosh
+```
+
+[参考](https://www.mongodb.com/docs/mongodb-shell/install/#std-label-mdb-shell-install)
+
 ### 安装包
 
 ```bash
@@ -196,4 +226,4 @@ mongod --dbpath /usr/mongodb/data --logpath /usr/mongodb/log/mongod.log --shutdo
 [Centos7 下 yum 安装 mongodb](https://www.cnblogs.com/xzlive/p/12855437.html)
 [Centos8.0 安装 Mongodb 命令步骤](https://www.cnblogs.com/yuchenghao/p/13730675.html)
 
-**Update On 2021.04.30, Create On 2020.06.26**
+**Update On 2023.03.01, Create On 2020.06.26**
