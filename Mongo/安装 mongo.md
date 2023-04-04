@@ -188,6 +188,17 @@ mongod --dbpath /usr/mongodb/data --logpath /usr/mongodb/log/mongod.log --shutdo
 
   至此刚才的远程连接应该已经连不上了，添加用户认证后重新连接即可
 
+### 创建某个数据库的管理员用户
+
+```sql
+-- 切换到某数据库
+use databases;
+
+-- 一定要先输入上方命令切换到想要创建管理员的库下, 否则新建的用户还是在 admin 中
+-- 否则用 mongo url 无法直接连接该数据库
+db..createUser({user:"name",pwd:"password",roles:[{role:"dbOwner",db:"yourdatabasename"}]})
+```
+
 ### 命令
 
 ```bash
@@ -225,5 +236,6 @@ mongod --dbpath /usr/mongodb/data --logpath /usr/mongodb/log/mongod.log --shutdo
 [mongodb 远程连接配置](https://www.cnblogs.com/jinxiao-pu/p/7121307.html)
 [Centos7 下 yum 安装 mongodb](https://www.cnblogs.com/xzlive/p/12855437.html)
 [Centos8.0 安装 Mongodb 命令步骤](https://www.cnblogs.com/yuchenghao/p/13730675.html)
+[mongo 设置管理账号](https://www.cnblogs.com/zwbsoft/p/15967019.html)
 
 **Update On 2023.03.01, Create On 2020.06.26**
