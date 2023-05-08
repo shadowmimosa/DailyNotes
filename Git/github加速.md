@@ -17,6 +17,13 @@ git config --get http.proxy
 127.0.0.1:8080
 ```
 
+### 加速服务
+
+[FastGithub](https://github.com/dotnetcore/FastGithub)
+- `sudo ./fastgithub start` // 以systemd服务安装并启动
+- `sudo ./fastgithub stop` // 以systemd服务卸载并删除
+- 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457
+
 ### 加速站点
 
 - [fastgit.org](https://doc.fastgit.org/)
