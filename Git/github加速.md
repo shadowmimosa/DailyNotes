@@ -26,9 +26,11 @@ git config --get http.proxy
 
 ### 加速站点
 
-- [fastgit.org](https://doc.fastgit.org/)
+- ~~[fastgit.org](https://doc.fastgit.org/)~~
 - [gitclone.com](https://gitclone.com/)
-- [cnpmjs.org](https://github.com.cnpmjs.org/)
+- ~~[cnpmjs.org](https://github.com.cnpmjs.org/)~~
+- [gitmirror](https://gitmirror.com/)
+- [ghproxy](https://ghproxy.com/)
 
 ### 使用方法
 
