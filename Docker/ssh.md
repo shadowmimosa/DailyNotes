@@ -2,7 +2,7 @@
 
 ## Docker 远程连接
 
-### 开启 sshd
+### 容器开启 sshd
 
 - 安装 ssh
 
