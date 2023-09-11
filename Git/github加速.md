@@ -20,8 +20,9 @@ git config --get http.proxy
 ### 加速服务
 
 [FastGithub](https://github.com/dotnetcore/FastGithub)
-- `sudo ./fastgithub start` // 以systemd服务安装并启动
-- `sudo ./fastgithub stop` // 以systemd服务卸载并删除
+
+- `sudo ./fastgithub start` // 以 systemd 服务安装并启动
+- `sudo ./fastgithub stop` // 以 systemd 服务卸载并删除
 - 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457
 
 ### 加速站点
@@ -31,6 +32,10 @@ git config --get http.proxy
 - ~~[cnpmjs.org](https://github.com.cnpmjs.org/)~~
 - [gitmirror](https://gitmirror.com/)
 - [ghproxy](https://ghproxy.com/)
+
+- download 加速
+  [GitHub 文件加速](https://github.abskoop.workers.dev/)
+  [文件下载加速器](https://down.npee.cn/)
 
 ### 使用方法
 
