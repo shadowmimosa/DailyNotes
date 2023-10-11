@@ -2,14 +2,17 @@
 
 ## Centos 安装 mysql
 
+可以直接参考官网最新的[文档](https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html)
+
 - 卸载默认安装的 mariadb
 
   > yum search mysql
-  > yum remove mariadb*
+  > yum remove mariadb\*
   > yum remove mariadb.x86_64
 
 - 去[官网](https://dev.mysql.com/downloads/repo/yum/)找到 mysql 的下载版本
-  找到下面的 Linux7，即 CentOS7(CentOS 是 Red Hat 旗下的)
+  <!-- 找到下面的 Linux7, 即 CentOS7(CentOS 是 Red Hat 旗下的) -->
+
   在下面的链接上直接右键复制链接（或者可以先下载到本地然后再用 ftp 传到服务器）
 
 - 安装
@@ -41,8 +44,9 @@
 
   > mysql -u root -p 密码
 
-- 修改密码，权限等
-  参考[这里](Mysql/添加用户和赋权.md)
+<!-- - 修改密码, 权限等 -->
+
+参考[这里](Mysql/添加用户和赋权.md)
 
 - 开机启动
   > systemctl enable mysqld
@@ -138,12 +142,47 @@
   netstat -nltp
   ```
 
+### 卸载
+
+```bash
+# 查看安装的mysql
+mysql --version
+rpm -qa|grep -i mysql
+
+# 查看mysql服务启用状态
+systemctl status mysqld.service
+
+# 停止mysql服务
+systemctl stop mysqld
+systemctl status mysqld.service
+
+# # # # 开始卸载, 一共5个包, 先卸载谁都可以, 逐个卸载, 直到5个全部卸载
+yum remove mysql-community-server.x86_64
+
+# 或者 --nodeps 忽略组件的依赖关系, 强制卸载
+rpm -qa|grep -i mysql
+rpm -ev --nodeps mysql-community-release-el7-5.noarch
+rpm -ev --nodeps mysql-community-common-5.1.73-7.el6.x86_64
+rpm -ev --nodeps mysql-community-client-5.1.73-7.el6.x86_64
+rpm -ev --nodeps mysql-community-libs-5.1.73-7.el6.x86_64
+rpm -ev --nodeps community-server-5.1.73-7.el6.x86_64
+
+# 查询没有了, 说明全部卸载完了
+rpm -qa|grep -i mysql
+
+# 删除 mysql 相关的文件
+rm -rf /usr/lib64/mysql
+
+# 删除 my.cnf
+rm -rf /etc/my.cnf
+```
+
 ### Reference
 
 [CentOS7 安装 mysql](https://cloud.tencent.com/developer/article/1393323)
 [在 Centos 操作系统下安装 mysql8.0](https://blog.csdn.net/qq_43317529/article/details/83039252)
 [centos8 重装 MySQL8](https://blog.csdn.net/weixin_40251892/article/details/108899826)
-[[MySQL]如何修改MySQL8.0端口(centos 7)
+[[MySQL]如何修改 MySQL8.0 端口(centos 7)
 ](https://blog.csdn.net/jameskaron/article/details/104561098)
 
 **Created On 2020.3.17, Update On 2020.10.10**
