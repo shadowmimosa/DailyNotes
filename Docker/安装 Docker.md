@@ -74,6 +74,20 @@
 
   修改权限
 
+- 20221019 更新
+  CentOS 安装, 参考[Install Docker Engine on CentOS](https://docs.docker.com/engine/install/centos/)
+  ```bash
+   sudo yum install -y yum-utils
+   sudo yum-config-manager \
+      --add-repo \
+      https://download.docker.com/linux/centos/docker-ce.repo
+  
+  sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+  sudo systemctl start docker
+
+  sudo docker run hello-world
+  ```
 ### 卸载
 
 [参考](https://www.cnblogs.com/kingsonfu/p/11582495.html)
