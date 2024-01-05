@@ -9,6 +9,7 @@
 ## AI 绘画
 
 - [esheep](https://www.esheep.com/)
+- [AI绘画中文网](https://www.xzhihui.pro/)
 
 ## 生成式 AI
 
