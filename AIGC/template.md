@@ -8,12 +8,12 @@
   用 Vue3 和 Go 搭建的微软 New Bing 演示站点，拥有一致的 UI 体验，支持 ChatGPT 提示词，国内可用。
 
 - [FastGPT](https://github.com/labring/FastGPT)
-  A platform that uses the OpenAI API to quickly build an AI knowledge base, supporting many-to-many relationships.
+  FastGPT is a knowledge-based QA system built on the LLM, offers out-of-the-box data processing and model invocation capabilities, allows for workflow orchestration through Flow visualization!
 
 - [Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT)
   An experimental open-source attempt to make GPT-4 fully autonomous.
 
-- [ChatGPT-Next-Web](https://github.com/Yidadaa/ChatGPT-Next-Web)
+- [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web)
   A well-designed cross-platform ChatGPT UI (Web / PWA / Linux / Win / MacOS). 一键拥有你自己的跨平台 ChatGPT 应用。
 
 - [chatgpt-web](https://github.com/Chanzhaoyu/chatgpt-web)
@@ -27,3 +27,24 @@
 
 - [DocsGPT](https://github.com/arc53/DocsGPT)
   GPT-powered chat for documentation, chat with your documents
+
+- [chatbox](https://github.com/Bin-Huang/chatbox)
+  Chatbox is a desktop client for ChatGPT, Claude and other LLMs, available on Windows, Mac, Linux
+
+- [ChatGPT-Midjourney](https://github.com/Licoy/ChatGPT-Midjourney)
+  🍭 一键拥有你自己的 ChatGPT+Midjourney 网页服务
+
+- [AgentGPT](https://github.com/reworkd/AgentGPT)
+  🤖 Assemble, configure, and deploy autonomous AI Agents in your browser.
+
+- [AutoGPT-Next-Web](https://github.com/ConnectAI-E/AutoGPT-Next-Web)
+  🤖 Assemble, configure, and deploy autonomous AI Agents in your browser.一键免费部署你的私人 AutoGPT 网页应用
+
+- [ChatGPT-Admin-Web](https://github.com/AprilNEA/ChatGPT-Admin-Web)
+  在团队和组织内共享使用人工智能的一站式系统
+
+- [ChatGPT-Admin-Web](https://github.com/AprilNEA/ChatGPT-Admin-Web)
+  在团队和组织内共享使用人工智能的一站式系统
+
+- [ChatGPT-Admin-Web](https://github.com/AprilNEA/ChatGPT-Admin-Web)
+  在团队和组织内共享使用人工智能的一站式系统
