@@ -60,59 +60,59 @@ XPath 通配符可用来选取未知的 XML 元素。
 在下面的表格中，我们列出了一些路径表达式，以及这些表达式的结果：
 
 | 路径表达式             | 结果          |
-| ---------------------- | ------------- |
-| `//book/title          | //book/price` | 选取 book 元素的所有 title 和 price 元素。 |
-| `//title               | //price`      | 选取文档中的所有 title 和 price 元素。 |
+| ---------------------- | ------------- | ----------------------------------------------------------------------------------- |
+| `//book/title          | //book/price` | 选取 book 元素的所有 title 和 price 元素。                                          |
+| `//title               | //price`      | 选取文档中的所有 title 和 price 元素。                                              |
 | `/bookstore/book/title | //price`      | 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。 |
 
 ### JS 使用 XPath
 
 ```js
 var result = document.evaluate(
-    "//a[@href]",
-    document,
-    null,
-    XPathResult.ANY_TYPE,
-    null
-);
-var nodes = result.iterateNext(); //枚举第一个元素
+  '//a[@href]',
+  document,
+  null,
+  XPathResult.ANY_TYPE,
+  null
+)
+var nodes = result.iterateNext() //枚举第一个元素
 while (nodes) {
-    // 对 nodes 执行操作;
-    nodes = result.iterateNext(); //枚举下一个元素
+  // 对 nodes 执行操作;
+  nodes = result.iterateNext() //枚举下一个元素
 }
 
 // 如果只查找单个元素，可以简写成这样
-nodes = document.evaluate("//div[@id='xxx']", document).iterateNext();
+nodes = document.evaluate("//div[@id='xxx']", document).iterateNext()
 ```
 
 ### xpath 获取当前标签的兄弟节点，父节点
 
 ```html
 <div>
-    <a id="1" href="www.baidu.com">我是第1个a标签</a>
-    <p>我是p标签</p>
-    <a id="2" href="www.baidu.com">我是第2个a标签</a>
-    <a id="3" href="www.baidu.com">我是第3个a标签</a>
-    <a id="4" href="www.baidu.com">我是第4个a标签</a>
-    <p>我是p标签</p>
-    <a id="5" href="www.baidu.com">我是第5个a标签</a>
+  <a id="1" href="www.baidu.com">我是第1个a标签</a>
+  <p>我是p标签</p>
+  <a id="2" href="www.baidu.com">我是第2个a标签</a>
+  <a id="3" href="www.baidu.com">我是第3个a标签</a>
+  <a id="4" href="www.baidu.com">我是第4个a标签</a>
+  <p>我是p标签</p>
+  <a id="5" href="www.baidu.com">我是第5个a标签</a>
 </div>
 ```
 
--   获取第三个 a 标签的下一个 a 标签
-    `"//a[@id='3']/following-sibling::a[1]"`
+- 获取第三个 a 标签的下一个 a 标签
+  `"//a[@id='3']/following-sibling::a[1]"`
 
--   获取第三个 a 标签后面的第 N 个标签
-    `"//a[@id='3']/following-sibling::\*[N]"`
+- 获取第三个 a 标签后面的第 N 个标签
+  `"//a[@id='3']/following-sibling::\*[N]"`
 
--   获取第三个 a 标签的上一个 a 标签
-    `"//a[@id='3']/preceding-sibling::a[1]"`
+- 获取第三个 a 标签的上一个 a 标签
+  `"//a[@id='3']/preceding-sibling::a[1]"`
 
--   获取第三个 a 标签的前面的第 N 个标签
-    `"//a[@id='3']/preceding-sibling::\*[N]"`
+- 获取第三个 a 标签的前面的第 N 个标签
+  `"//a[@id='3']/preceding-sibling::\*[N]"`
 
--   获取第三个 a 标签的父标签
-    `"//a[@id=='3']/.."`
+- 获取第三个 a 标签的父标签
+  `"//a[@id=='3']/.."`
 
 ### 取最后元素
 
