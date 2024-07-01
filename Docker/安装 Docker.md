@@ -76,18 +76,20 @@
 
 - 20221019 更新
   CentOS 安装, 参考[Install Docker Engine on CentOS](https://docs.docker.com/engine/install/centos/)
+
   ```bash
    sudo yum install -y yum-utils
    sudo yum-config-manager \
       --add-repo \
       https://download.docker.com/linux/centos/docker-ce.repo
-  
+
   sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
   sudo systemctl start docker
 
   sudo docker run hello-world
   ```
+
 ### 卸载
 
 [参考](https://www.cnblogs.com/kingsonfu/p/11582495.html)
@@ -159,12 +161,16 @@ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v porta
 
 鉴于国内网络问题，后续拉取镜像十分缓慢，可以需要配置加速器来解决
 
-- 镜像站
-  [Docker 官方中国区](https://registry.docker-cn.com)
-  [网易](http://hub-mirror.c.163.com)
-  [ustc](https://docker.mirrors.ustc.edu.cn)
+### 镜像站
 
-  [腾讯云](https://mirror.ccs.tencentyun.com)
+2024.06.06 起都已经陆续被魔法
+
+- ~~[Docker 官方中国区](https://registry.docker-cn.com)~~
+- ~~[网易](http://hub-mirror.c.163.com)~~
+- ~~[ustc](https://docker.mirrors.ustc.edu.cn)~~
+- ~~[腾讯云](https://mirror.ccs.tencentyun.com)~~
+- ~~[阿里云](https://registry.cn-hangzhou.aliyuncs.com)~~
+- [DaoCloud 镜像站](https://docker.m.daocloud.io) - 截止 2024.07.01 已开启[白名单限流](https://github.com/DaoCloud/public-image-mirror/issues/2328)等
 
 这里使用阿里云的镜像加速，在开发者平台找到自己的唯一加速地址后编辑
 
@@ -183,6 +189,29 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
+
+### 已被魔法
+
+**2024.06.06 起国内所有镜像站陆续下架**
+![Alt text](image.png)
+
+后续该公告被修改为
+![Alt text](image-1.png)
+
+如今该[公告](https://sjtug.org/post/mirror-news/2024-06-06-takedown-dockerhub/)已经 404
+
+### 曲线方案
+
+- [Docker 仓库镜像代理工具](https://github.com/cmliu/CF-Workers-docker.io)
+  基于 Cloudflare Workers 的 Docker 镜像代理工具
+- [dockerpull](https://dockerpull.com/)
+  ```bash
+  docker pull whyour/qinglong:latest
+  # 替换为
+  docker pull dockerpull.com/whyour/qinglong:latest
+  ```
+- [public-image-mirror](https://github.com/DaoCloud/public-image-mirror)
+- [Docker Hub 镜像加速器](https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6)
 
 ### Reference
 
