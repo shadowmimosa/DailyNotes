@@ -11,12 +11,36 @@ Docker-Compose 项目是 Docker 官方的开源项目，负责实现对 Docker �
 
 ### 安装
 
-```bash
-apt install python-pip
-# centOS
-yum -y install python-pip
-pip install docker-compose
-```
+- pip 安装
+
+  ```bash
+  apt install python-pip
+  # centOS
+  yum -y install python-pip
+  pip install docker-compose
+  ```
+
+- 二进制安装
+
+  ```bash
+  DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+  mkdir -p $DOCKER_CONFIG/cli-plugins
+  curl -SL https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+  chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+  docker compose version
+  ```
+
+- 存储库安装
+
+  ```bash
+  yum install -y yum-utils
+  yum-config-manager \
+      --add-repo \
+      https://download.docker.com/linux/centos/docker-ce.repo
+
+  yum update
+  yum install docker-compose-plugin
+  ```
 
 检查版本
 
@@ -89,5 +113,7 @@ pip uninstall docker-compose
 ### Reference
 
 [Docker 入门之 docker-compose](https://www.cnblogs.com/minseo/p/11548177.html)
+[Docker 安装 Compose 插件](https://www.cnblogs.com/fanqisoft/p/16950491.html)
+[OpenWRT 安装 Docker Compose](https://zhuanlan.zhihu.com/p/623925620)
 
 **2020.09.17**
