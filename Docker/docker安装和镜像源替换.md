@@ -33,6 +33,21 @@ docker 已无法安装，需要使用国内镜像源安装
 
   注意：需要重启一下机器，让配置全局生效
 
+### 截止目前，国内仍然可用 docker 镜像加速器汇总（2024 年 11 月）
+
+| DockerHub 镜像仓库                 | 镜像加速器地址                                               |
+| ---------------------------------- | ------------------------------------------------------------ |
+| 镜像使用说明                       | [https://dockerhub.icu](https://dockerhub.icu)               |
+|                                    | [https://hub.rat.dev](https://hub.rat.dev)                   |
+|                                    | [https://docker.wanpeng.top](https://docker.wanpeng.top)     |
+| 镜像使用说明                       | [https://doublezonline.cloud](https://doublezonline.cloud)   |
+| 镜像使用说明                       | [https://docker.mrxn.net](https://docker.mrxn.net)           |
+| DockerHub 镜像加速代理             | [https://docker.anyhub.us.kg](https://docker.anyhub.us.kg)   |
+| 镜像使用说明                       | [https://dislabaiot.xyz](https://dislabaiot.xyz)             |
+| Docker Hub Container Image Library | [https://docker.fxxk.dedyn.io](https://docker.fxxk.dedyn.io) |
+
+有些镜像只提供基础镜像或者白名单镜像，如果拉取不到镜像，可以尝试切换镜像地址。
+
 ### 修改国内镜像源
 
 参考：[https://github.com/cmliu/CF-Workers-docker.io](https://github.com/cmliu/CF-Workers-docker.io)
@@ -809,5 +824,6 @@ do_install
 ### Reference
 
 - [docker 安装和镜像源替换](https://r3f3348v36.feishu.cn/docx/WcYndLOvto5W7Bxb49BcrmmZn8e)
+- [截止目前，国内仍然可用docker镜像加速器汇总（2024年11月）](https://www.kelen.cc/dry/docker-hub-mirror)
 
-**2024.08.05**
+**Create On 2024.08.05, Update On 2024.11.21**
