@@ -19,11 +19,15 @@ git config --get http.proxy
 
 ### 加速服务
 
-[FastGithub](https://github.com/dotnetcore/FastGithub)
+- ~~[FastGithub](https://github.com/dotnetcore/FastGithub)~~ 项目已删除
 
-- `sudo ./fastgithub start` // 以 systemd 服务安装并启动
-- `sudo ./fastgithub stop` // 以 systemd 服务卸载并删除
-- 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457
+  - `sudo ./fastgithub start` // 以 systemd 服务安装并启动
+  - `sudo ./fastgithub stop` // 以 systemd 服务卸载并删除
+  - 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457
+
+- [dev-sidecar](https://github.com/docmirror/dev-sidecar)
+  开发者边车
+  可加速不止 github
 
 ### 加速站点
 
@@ -69,4 +73,4 @@ git config --get http.proxy
 [Failed to connect to github.com port 443: Timed out](https://www.cnblogs.com/cbugs/p/12257443.html)
 [在服务器里面，怎么给访问 github 加速](https://www.v2ex.com/t/728625)
 
-**2021.04.28**
+**Create On 2021.04.28, Modified On 2024.12.19**
