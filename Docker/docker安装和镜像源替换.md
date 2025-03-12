@@ -45,6 +45,7 @@ docker 已无法安装，需要使用国内镜像源安装
 | DockerHub 镜像加速代理             | [https://docker.anyhub.us.kg](https://docker.anyhub.us.kg)   |
 | 镜像使用说明                       | [https://dislabaiot.xyz](https://dislabaiot.xyz)             |
 | Docker Hub Container Image Library | [https://docker.fxxk.dedyn.io](https://docker.fxxk.dedyn.io) |
+| docker proxy                       | [https://dockerproxy.net/](https://dockerproxy.net/)         |
 
 有些镜像只提供基础镜像或者白名单镜像，如果拉取不到镜像，可以尝试切换镜像地址。
 
@@ -819,11 +820,319 @@ do_install() {
 # half the file during "curl | sh"
 do_install
 
-```
+### 使用 Cloudflare Workers 搭建 Docker Hub 镜像加速服务
+
+如果你想自己搭建一个 Docker Hub 镜像加速服务，可以利用 Cloudflare Workers 的免费资源来实现。
+
+#### 前提条件
+
+1. 注册一个 Cloudflare 账号
+2. 在 Cloudflare 账号下有一个域名（推荐注册便宜的 .top 域名并转移到 Cloudflare）
+3. 注意：Workers 免费账号每天有 10 万次请求限制，每分钟最多 1000 次请求
+
+#### 部署步骤
+
+1. 登录 Cloudflare 控制面板：https://dash.cloudflare.com/
+2. 进入 Workers & Pages
+3. 点击"创建应用程序" -> "创建 Worker"
+4. 创建完成后点击"编辑代码"
+
+#### 配置说明
+
+1. 编辑 Worker 代码，主要设置以下参数：
+   - Docker 镜像仓库主机地址：`registry-1.docker.io`
+   - Docker 认证服务器地址：`auth.docker.io`
+   - 自定义的工作服务器地址：替换为你的域名
+
+2. 保存并部署代码后，配置自定义域名：
+   - 返回项目页面
+   - 配置触发器
+   - 添加自定义域名
+
+#### Worker 代码示例
+
+```javascript
+// Docker镜像仓库主机地址
+let hub_host = 'registry-1.docker.io';
+// Docker认证服务器地址
+const auth_url = 'https://auth.docker.io';
+// 自定义的工作服务器地址
+let workers_url = 'https://你的域名/';
+let 屏蔽爬虫UA = ['netcraft'];
+
+// 根据主机名选择对应的上游地址
+function routeByHosts(host) {
+    // 定义路由表
+    const routes = {
+        // 生产环境
+        "quay": "quay.io",
+        "gcr": "gcr.io",
+        "k8s-gcr": "k8s.gcr.io",
+        "k8s": "registry.k8s.io",
+        "ghcr": "ghcr.io",
+        "cloudsmith": "docker.cloudsmith.io",
+        "nvcr": "nvcr.io",
+        // 测试环境
+        "test": "registry-1.docker.io",
+    };
+    if (host in routes) return [routes[host], false];
+    else return [hub_host, true];
+}
+
+/** @type {RequestInit} */
+const PREFLIGHT_INIT = {
+    // 预检请求配置
+    headers: new Headers({
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'GET,POST,PUT,PATCH,TRACE,DELETE,HEAD,OPTIONS',
+        'access-control-max-age': '1728000',
+    }),
+}
+
+/**
+ * 构造响应
+ * @param {any} body 响应体
+ * @param {number} status 响应状态码
+ * @param {Object<string, string>} headers 响应头
+ */
+function makeRes(body, status = 200, headers = {}) {
+    headers['access-control-allow-origin'] = '*'
+    return new Response(body, { status, headers })
+}
+
+/**
+ * 构造新的URL对象
+ * @param {string} urlStr URL字符串
+ */
+function newUrl(urlStr) {
+    try {
+        return new URL(urlStr)
+    } catch (err) {
+        return null
+    }
+}
+
+/**
+ * 验证UUID格式
+ * @param {string} uuid UUID字符串
+ */
+function isUUID(uuid) {
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(uuid);
+}
+
+/**
+ * 生成Nginx欢迎页
+ */
+async function nginx() {
+    const text = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Welcome to nginx!</title>
+    <style>
+        body {
+            width: 35em;
+            margin: 0 auto;
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+        }
+    </style>
+    </head>
+    <body>
+    <h1>Welcome to nginx!</h1>
+    <p>If you see this page, the nginx web server is successfully installed and
+    working. Further configuration is required.</p>
+    <p>For online documentation and support please refer to
+    <a href="http://nginx.org/">nginx.org</a>.<br/>
+    Commercial support is available at
+    <a href="http://nginx.com/">nginx.com</a>.</p>
+    <p><em>Thank you for using nginx.</em></p>
+    </body>
+    </html>
+    `;
+    return text;
+}
+
+/**
+ * 生成搜索界面
+ */
+async function searchInterface() {
+    const text = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Docker Hub Search</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, rgb(28, 143, 237), rgb(29, 99, 237));
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        #search-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        #search-button {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #search-button svg {
+            width: 24px;
+            height: 24px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18" fill="#ffffff" width="100" height="75">
+            <path d="M23.763 6.886c-.065-.053-.673-.512-1.954-.512-.32 0-.659.03-1.01.087-.248-1.703-1.651-2.533-1.716-2.57l-.345-.2-.227.328a4.596 4.596 0 0 0-.611 1.433c-.23.972-.09 1.884.403 2.666-.596.331-1.546.418-1.744.42H.752a.753.753 0 0 0-.75.749c-.007 1.456.233 2.864.692 4.07.545 1.43 1.355 2.483 2.409 3.13 1.181.725 3.104 1.14 5.276 1.14 1.016 0 2.03-.092 2.93-.266 1.417-.273 2.705-.742 3.826-1.391a10.497 10.497 0 0 0 2.61-2.14c1.252-1.42 1.998-3.005 2.553-4.408.075.003.148.005.221.005 1.371 0 2.215-.55 2.68-1.01.505-.5.685-.998.704-1.053L24 7.076l-.237-.19Z"></path>
+            <path d="M2.216 8.075h2.119a.186.186 0 0 0 .185-.186V6a.186.186 0 0 0-.185-.186H2.216A.186.186 0 0 0 2.031 6v1.89c0 .103.083.186.185.186Zm2.92 0h2.118a.185.185 0 0 0 .185-.186V6a.185.185 0 0 0-.185-.186H5.136A.185.185 0 0 0 4.95 6v1.89c0 .103.083.186.186.186Zm2.964 0h2.118a.186.186 0 0 0 .185-.186V6a.186.186 0 0 0-.185-.186H8.1A.185.185 0 0 0 7.914 6v1.89c0 .103.083.186.186.186Zm2.928 0h2.119a.185.185 0 0 0 .185-.186V6a.185.185 0 0 0-.185-.186h-2.119a.186.186 0 0 0-.185.186v1.89c0 .103.083.186.185.186Zm-5.892-2.72h2.118a.185.185 0 0 0 .185-.186V3.28a.186.186 0 0 0-.185-.186H5.136a.186.186 0 0 0-.186.186v1.89c0 .103.083.186.186.186Zm2.964 0h2.118a.186.186 0 0 0 .185-.186V3.28a.186.186 0 0 0-.185-.186H8.1a.186.186 0 0 0-.186.186v1.89c0 .103.083.186.186.186Zm2.928 0h2.119a.185.185 0 0 0 .185-.186V3.28a.186.186 0 0 0-.185-.186h-2.119a.186.186 0 0 0-.185.186v1.89c0 .103.083.186.185.186Zm0-2.72h2.119a.186.186 0 0 0 .185-.186V.56a.185.185 0 0 0-.185-.186h-2.119a.186.186 0 0 0-.185.186v1.89c0 .103.083.186.185.186Zm2.955 5.44h2.118a.185.185 0 0 0 .186-.186V6a.185.185 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.186v1.89c0 .103.083.186.185.186Z"></path>
+        </svg>
+        </div>
+        <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search Docker Hub">
+        <button id="search-button">
+            <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+        </div>
+        <script>
+        function performSearch() {
+            const query = document.getElementById('search-input').value;
+            if (query) {
+                window.location.href = 'https://hub.docker.com/search?q=' + encodeURIComponent(query);
+            }
+        }
+        document.getElementById('search-button').addEventListener('click', performSearch);
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        </script>
+    </body>
+    </html>
+    `;
+    return text;
+}
+
+// 处理请求的主函数
+async function handleRequest(request) {
+    const req_url = new URL(request.url);
+
+    // 处理预检请求
+    if (request.method === 'OPTIONS') {
+        return new Response(null, PREFLIGHT_INIT)
+    }
+
+    // 获取请求头
+    const reqHeaders = new Headers(request.headers);
+    const ua = reqHeaders.get('user-agent') || '';
+
+    // 屏蔽特定User-Agent
+    if (屏蔽爬虫UA.some(k => ua.includes(k))) {
+        return new Response('', { status: 403 });
+    }
+
+    // 处理根路径请求
+    if (req_url.pathname === '/') {
+        const html = await searchInterface();
+        return new Response(html, {
+            headers: { 'content-type': 'text/html;charset=UTF-8' }
+        });
+    }
+
+    // 处理 nginx 页面请求
+    if (req_url.pathname === '/nginx') {
+        const html = await nginx();
+        return new Response(html, {
+            headers: { 'content-type': 'text/html;charset=UTF-8' }
+        });
+    }
+
+    // 处理路由
+    const [upstream, isDirect] = routeByHosts(req_url.host);
+
+    // 构建新的请求URL
+    const fetchUrl = new URL(request.url);
+    fetchUrl.protocol = 'https:';
+    fetchUrl.host = upstream;
+
+    // 处理认证请求
+    if (fetchUrl.host === hub_host && fetchUrl.pathname.startsWith('/v2/') && !isDirect) {
+        const authHeader = reqHeaders.get('authorization') || '';
+        if (!authHeader.includes('Bearer')) {
+            const service = reqHeaders.get('service') || 'registry.docker.io';
+            const scope = reqHeaders.get('scope') || '';
+            const auth_params = new URLSearchParams({
+                service: service,
+                scope: scope
+            });
+            const auth_res = await fetch(`${auth_url}/token?${auth_params}`);
+            if (auth_res.ok) {
+                const auth_info = await auth_res.json();
+                reqHeaders.set('authorization', `Bearer ${auth_info.token}`);
+            }
+        }
+    }
+
+    // 转发请求
+    const fp = fetch(fetchUrl.toString(), {
+        method: request.method,
+        headers: reqHeaders,
+        body: request.body
+    });
+
+    return fp;
+}
+
+// 注册服务工作者
+addEventListener('fetch', event => {
+    event.respondWith(handleRequest(event.request));
+});
+````
+
+#### 使用方法
+
+部署完成后，将你配置的自定义域名添加到 Docker 的镜像加速器配置中即可使用。
+
+#### 注意事项
+
+- 确保域名已经正确解析到 Cloudflare
+- 合理使用免费额度，避免超出限制
+- 建议设置监控，及时了解使用情况
 
 ### Reference
 
 - [docker 安装和镜像源替换](https://r3f3348v36.feishu.cn/docx/WcYndLOvto5W7Bxb49BcrmmZn8e)
-- [截止目前，国内仍然可用docker镜像加速器汇总（2024年11月）](https://www.kelen.cc/dry/docker-hub-mirror)
+- [截止目前，国内仍然可用 docker 镜像加速器汇总（2024 年 11 月）](https://www.kelen.cc/dry/docker-hub-mirror)
+- [最新可用 Docker (DockerHub) 国内镜像源加速列表 - 长期维护（截至 2025 年 3 月）](https://www.5dzone.com/posts/docker-mirrors.html)
+- [Docker Hub 镜像加速器](https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6)
+- [白嫖 Cloudflare Workers 搭建 Docker Hub 镜像加速服务](https://songxwn.com/cf-works-DockerHub-Proxy/)
 
-**Create On 2024.08.05, Update On 2024.11.21**
+**Create On 2024.08.05, Update On 2024.03.12**
