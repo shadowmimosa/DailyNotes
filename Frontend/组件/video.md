@@ -1,0 +1,3 @@
+- [vimeo](https://vimeo.com/)
+- [video.js](https://videojs.com/) | [Github](https://github.com/videojs/video.js))
+- [plyr](https://github.com/sampotts/plyr) | [Demo](https://plyr.io/)
