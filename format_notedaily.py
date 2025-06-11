@@ -1,6 +1,7 @@
 import os
 import re
 import fileinput
+
 folderpath = "C:\\Users\\ShadowMimosa\\Documents\\GitRepository\\DailyNotes\\Linux\\liuliuliu"
 
 
@@ -52,12 +53,14 @@ def change_signature():
                     #             print(filename, date_line)
                     #             break
 
+
 def remove_pdf(path):
     for root, dirs, files in os.walk(path):
         for filename in files:
-            filetype =filename.split('.')[-1]
+            filetype = filename.split('.')[-1]
             if filetype == 'pdf':
                 os.remove(os.path.join(root, filename))
+
 
 # change_signature()
 
