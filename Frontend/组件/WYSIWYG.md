@@ -29,5 +29,8 @@
 - [AiEditor](https://github.com/aieditor-team/AiEditor) | [Homepage](https://aieditor.dev/)
   AiEditor is a next-generation rich text editor for AI
 
+- [ace](https://github.com/ajaxorg/ace) | [Homepage](https://ace.c9.io/)
+  Ace (Ajax.org Cloud9 Editor)
+
 **[awesome-wysiwyg-editors](https://github.com/JefMari/awesome-wysiwyg-editors)**
 A curated list of awesome WYSIWYG Editors.
